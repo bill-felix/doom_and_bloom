@@ -1,22 +1,37 @@
-# pre_data_tools
-Tools to explore experiment design prior to the Import phase hereafter referred to as the __Pre-Data Mindset__.
+# Doom & Bloom: Pre-data Mindset
 
+Tools to explore data possibilities prior to the Import phase. Hereafter referred to as the __Pre-Data Mindset__. Illustrated using `iris`.
 
-## libraries
+## Getting Started
 
-`tidyverse`, `purrr`
-`foreach`
+ * Establish a Few Good `Whys`
+    + Faster to what if analysis
+    + Faster to story crafting
+    + Your code is still reusable
+ * Investigate `iris` with a Pre-data Mindset
+
+## Organization
+
+Reproducible R Markdown files are in use_iris & append_iris folders.
+
+### Prerequisites
+
+`R`
+
+## Package Libraries
+
+`tidyverse`, `wrapr`, `purrr`, `foreach`
 `fabricatr`, `randomizr`, `estimator`
-`charlatan`
-`randNames`
+`randNames`, `wakefield`, `charlatan`, `generator`
 `synthpop`
-`wakefield`
+`skimr`
 
-## goals
+## License
 
- - take a look at `iris`
- - use tools to synth `iris`
- - understand different tool strengths
- 
-## slidify notes
+This project is licensed under the unlicense - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* the package authors unspecifically
+
 

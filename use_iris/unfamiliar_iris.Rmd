@@ -15,6 +15,13 @@ ggthemr('dust')
 data(iris)
 ```
 
+>##`synthpop`   
+>__Authors:__ Beata Nowok  
+>__Purpose:__ Tools for creating synthetic versions of microdata   
+>__Outlook:__ A really great implementation of programmatic simulation of existing data  
+>[...on github](https://github.com/bnowok/synthpop)   
+
+
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(synthpop)
 
@@ -75,4 +82,3 @@ comp_iris_kclust %>% group_by(Species, miss) %>%
   mutate(perc = paste0(round(100 * n/sum(n), 0), "%")) %>% 
   filter(miss == 1) %>% data.frame()
 ```
-
