@@ -1,0 +1,84 @@
+---
+title: "Unfamiliar `iris` w/ fakeR"
+output:
+  html_notebook: 
+    code_folding: hide
+    highlight: pygments
+    theme: simplex
+---
+
+```{r lib, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(tidyverse)
+# devtools::install_github('cttobin/ggthemr')
+library(ggthemr)
+ggthemr('dust')
+data(iris)
+```
+
+>##`fakeR`   
+>__Authors:__ Lily Zhang and Dustin Tingley  
+>__Purpose:__ Simulate a dataset quickly   
+>__Outlook:__ Very minimal in setup and execution. Not my thing.  
+>[...on CRAN](https://cran.r-project.org/web/packages/fakeR/index.html)   
+
+
+```{r fakeR, message=FALSE, warning=FALSE}
+library(fakeR)
+
+new_iris <- fakeR::simulate_dataset(iris
+                                    , use.levels =T
+                                    , stealth.level = 2
+                                    )
+```
+
+
+```{r look, message=FALSE, warning=FALSE, paged.print=TRUE}
+library(skimr)
+skim(new_iris)
+```
+
+
+```{r kmeans, message=FALSE, warning=FALSE}
+## get clusters using kmeans 
+## we know are expecting 3 Species
+set.seed(88)
+
+## create model
+kclust <- new_iris %>% dplyr::select(-Species) %>%
+  kmeans(centers=3, nstart=10)
+
+## create dataframe with factors; use broom
+library(broom)
+new_iris_kclust <- augment(kclust, new_iris)
+
+## plot
+ggplot(new_iris_kclust, aes(x=Petal.Width, y=Sepal.Width
+                        , color=.cluster)) + 
+  geom_point() +
+  facet_wrap(~Species)
+```
+
+## Benchmark Table
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+## get the misses
+comp_iris_kclust <- new_iris_kclust %>% 
+  mutate(miss = ifelse(Species == 'versicolor' & .cluster == 1, 0
+                  , ifelse(Species == 'setosa' & .cluster == 2, 0
+                      , ifelse(Species == 'virginica' & .cluster == 3, 0
+                          , 1)))
+         , group = paste0(Species,':',miss))
+```
+
+### Missed Classifications
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+xtabs(~ Species + .cluster, comp_iris_kclust %>% filter(miss == 1))
+```
+
+### Percantage of Missed Classifications
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+comp_iris_kclust %>% group_by(Species, miss) %>% 
+  summarize(n = n()) %>%
+  mutate(perc = paste0(round(100 * n/sum(n), 0), "%")) %>% 
+  filter(miss == 1) %>% data.frame()
+```
