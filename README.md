@@ -5,9 +5,9 @@ Tools to explore data possibilities prior to the Import phase. Hereafter referre
 ## Getting Started
 
  * Establish a Few Good `Whys`
-    + Faster to what if analysis
-    + Faster to story crafting
-    + Your code is still reusable
+    + Mask Real Data: Security Inc. & Usefulness Inc.
+    + Reduce Overfitting
+    + Get Started Now!
  * Investigate `iris` with a Pre-data Mindset
 
 ## Organization
@@ -23,7 +23,7 @@ Reproducible R Markdown files are in use_iris & append_iris folders.
 `tidyverse`, `wrapr`, `purrr`, `foreach`
 `fabricatr`, `randomizr`, `estimator`
 `randNames`, `wakefield`, `charlatan`, `generator`
-`synthpop`
+`synthpop`, `fakeR`
 `skimr`
 
 ## License
